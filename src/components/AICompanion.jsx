@@ -2,11 +2,10 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Send, MessageCircle, Bot, Code, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+
 import { Switch } from "@/components/ui/switch"; // Assuming you have a Switch component from shadcn/ui; install if needed: npx shadcn-ui@latest add switch
 import { useState, useRef, useEffect, useMemo } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import axios from "axios";
 import promptData from "../data/sarvisPrompt.json"; // Adjusted: Move sarvisPrompt.json to src/data/ for this path to work
 
 const Contact = () => {

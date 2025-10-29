@@ -2,9 +2,9 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge"; // FIXED: Import Badge from Shadcn/UI
+
+
+import { Badge } from "@/components/ui/Badge"; 
 import { Github, ChevronRight, FolderOpen, Star, BookOpen, Brain, Code, Zap } from "lucide-react";
 import categories from "../data/categories.json"; // NEW: Import categories from JSON for easy future updates
 

@@ -177,7 +177,7 @@ const Footer = () => {
           variants={childVariants}
           className="text-center text-xs text-slate-500"
         >
-          Built with ❤️ using React, Tailwind, and shadcn/ui. Hosted on Vercel.
+          Built with ❤️ using React, Tailwind, and shadcn/ui. 
         </motion.p>
       </div>
     </motion.footer>
