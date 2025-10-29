@@ -173,7 +173,7 @@ const Hero = () => {
     className="border-cyan-400 text-cyan-400 hover:bg-cyan-400/10"
   >
     <a
-      href="https://www.linkedin.com/in/saurabh-singh-25639a306/"
+      href="http://linkedin.com/in/saurabh-singh-rajput-25639a306"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -194,7 +194,7 @@ const Hero = () => {
             <Github className="w-7 h-7 text-slate-300 hover:text-cyan-400" />
           </a>
           <a
-            href="https://www.linkedin.com/in/saurabh-singh-25639a306/"
+            href="http://linkedin.com/in/saurabh-singh-rajput-25639a306"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:scale-110 transition"

@@ -224,7 +224,7 @@ const About = () => {
             {[
               { href: "https://github.com/DevSars24", icon: Github, label: "GitHub" },
               { href: "https://codolio.com/profile/sars", icon: Code, label: "Codolio" },
-              { href: "https://www.linkedin.com/in/saurabh-singh-25639a306/", icon: Linkedin, label: "LinkedIn" },
+              { href: "http://linkedin.com/in/saurabh-singh-rajput-25639a306", icon: Linkedin, label: "LinkedIn" },
               { href: "https://www.geeksforgeeks.org/user/saurabhsinvqv3/", icon: Award, label: "GFG" },
               { href: "https://leetcode.com/u/VXGxeHwq/", icon: Code, label: "LeetCode" },
               { href: "https://hashnode.com/@saurabh465", icon: BookOpen, label: "Hashnode" },

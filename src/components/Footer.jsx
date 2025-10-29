@@ -133,7 +133,7 @@ const Footer = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-3 sm:gap-4">
               {[
                 { href: "https://github.com/DevSars24", icon: Github, label: "GitHub" },
-                { href: "https://www.linkedin.com/in/saurabh-singh-25639a306/", icon: Linkedin, label: "LinkedIn" },
+                { href: "http://linkedin.com/in/saurabh-singh-rajput-25639a306", icon: Linkedin, label: "LinkedIn" },
                 { href: "mailto:saurabh@example.com", icon: Mail, label: "Email" },
                 { href: "https://twitter.com/yourhandle", icon: Twitter, label: "Twitter" },
               ].map(({ href, icon: Icon, label }, idx) => (
