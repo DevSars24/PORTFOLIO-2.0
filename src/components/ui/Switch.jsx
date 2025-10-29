@@ -1,4 +1,4 @@
-const Switch = ({ checked, onChange }) => (
+const   Switch = ({ checked, onChange }) => (
     <button
       onClick={onChange}
       className={`w-12 h-6 rounded-full ${checked ? "bg-cyan-400" : "bg-slate-600"}`}
