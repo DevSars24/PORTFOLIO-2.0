@@ -1,18 +1,17 @@
-// src/App.jsx
+// src/App.jsx (Integrated LearningLab Route)
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Suspense, lazy, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { HelmetProvider } from "react-helmet-async"; // ✅ For SEO
 import Layout from "./components/ui/Layout";
-import { StatsProvider } from "./context/StatsContext";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Projects from "./components/Projects";
+import Contact from "./components/AICompanion"; // Aliased import - works with <Contact /> in route
+ // NEW: Import LearningLab
 import WelcomeScreen from "./components/WelcomeScreen";
 
-// ✅ Lazy-loaded pages for faster initial load
-const Hero = lazy(() => import("./components/Hero"));
-const About = lazy(() => import("./components/About"));
-const Projects = lazy(() => import("./components/Projects"));
-const Contact = lazy(() => import("./components/AICompanion"));
-// const LearningLab = lazy(() => import("./components/LearningLab")); // Uncomment if using later
+// Updated import for global stats state
+import { StatsProvider } from "./context/StatsContext";
 
 function AppContent() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -23,34 +22,15 @@ function AppContent() {
         <WelcomeScreen key="welcome" onFinish={() => setShowWelcome(false)} />
       ) : (
         <BrowserRouter>
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center h-screen text-cyan-400 text-xl animate-pulse">
-                🚀 Loading Portfolio...
-              </div>
-            }
-          >
-            <Routes>
-              <Route element={<Layout />}>
-                <Route
-                  path="/"
-                  element={
-                    <>
-                      <HelmetProvider>
-                        <meta name="description" content="Saurabh Singh Rajput | MERN Developer and AI Enthusiast Portfolio" />
-                        <title>Saurabh Singh Rajput | Portfolio</title>
-                      </HelmetProvider>
-                      <Hero />
-                    </>
-                  }
-                />
-                <Route path="/about" element={<About />} />
-                <Route path="/projects/:id?" element={<Projects />} />
-                <Route path="/contact" element={<Contact />} />
-                {/* <Route path="/learning-lab" element={<LearningLab />} /> */}
-              </Route>
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Hero />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects/:id?" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} /> {/* Path stays /contact; component is AICompanion */}
+           {/*  <Route path="/learning-lab" element={<LearningLab />} /> /* NEW: LearningLab Route */}
+            </Route>
+          </Routes>
         </BrowserRouter>
       )}
     </AnimatePresence>
@@ -59,11 +39,9 @@ function AppContent() {
 
 function App() {
   return (
-    <HelmetProvider>
-      <StatsProvider>
-        <AppContent />
-      </StatsProvider>
-    </HelmetProvider>
+    <StatsProvider>
+      <AppContent />
+    </StatsProvider>
   );
 }
 
