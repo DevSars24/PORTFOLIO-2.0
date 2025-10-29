@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+
+// --- Internal Badge component (avoids external import/build issues) ---
+const Badge = ({ children, className }) => (
+  <span className={`px-2 py-1 rounded-md bg-slate-700/50 text-slate-300 text-xs lg:text-sm ${className || ""}`}>
+    {children}
+  </span>
+);
 
 const Footer = () => {
   // Animation variants
@@ -109,7 +115,6 @@ const Footer = () => {
                   transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                 >
                   <Badge
-                    variant="secondary"
                     className="bg-slate-800/20 border-cyan-400/30 text-slate-300 hover:bg-cyan-500/30 transition-all duration-300"
                   >
                     {skill.label}
