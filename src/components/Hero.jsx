@@ -248,10 +248,7 @@ const Hero = () => {
         initial="hidden"
         animate="visible"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-red-400/30 rounded-full">
-          <Heart className="w-4 h-4 text-red-400" />
-          <span className="text-sm text-slate-200">{totalLikes.toLocaleString()} Likes</span>
-        </div>
+       
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-cyan-400/30 rounded-full">
           <Eye className="w-4 h-4 text-cyan-400" />
           <span className="text-sm text-slate-200">{totalViews.toLocaleString()} Views</span>
