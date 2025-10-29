@@ -3,10 +3,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-
-import { Badge } from "@/components/ui/Badge"; 
 import { Github, ChevronRight, FolderOpen, Star, BookOpen, Brain, Code, Zap } from "lucide-react";
 import categories from "../data/categories.json"; // NEW: Import categories from JSON for easy future updates
+
+// --- Internal Badge component (avoids external import/build issues) ---
+const Badge = ({ children, className }) => (
+  <span className={`px-2 py-1 rounded-md bg-slate-700/50 text-slate-300 text-xs lg:text-sm ${className || ""}`}>
+    {children}
+  </span>
+);
 
 const colorMap = {
   "cyan-400": "text-cyan-400",
@@ -63,7 +68,7 @@ const ProjectCard = React.memo(({ project, color }) => (
           <p>{project.desc}</p>
           <div className="mt-4 flex flex-wrap gap-2"> {/* Increased mt for breathing room */}
             {project.techStack.map((tech, idx) => (
-              <Badge key={idx} variant="secondary" className="bg-slate-700/50 text-slate-300 text-xs lg:text-sm"> {/* FIXED: Badge now imported/defined */}
+              <Badge key={idx} className="bg-slate-700/50 text-slate-300 text-xs lg:text-sm"> {/* FIXED: Using internal Badge, removed variant */}
                 {tech}
               </Badge>
             ))}
