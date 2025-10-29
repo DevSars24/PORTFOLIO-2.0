@@ -172,49 +172,8 @@ const Contact = () => {
             }
           </p>
 
-          {/* Contact Form (added since formData suggests a form) */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleFormChange}
-              required
-            />
-            <Input
-              name="email"
-              type="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleFormChange}
-              required
-            />
-            <Textarea
-              name="message"
-              placeholder="Your Message"
-              value={formData.message}
-              onChange={handleFormChange}
-              rows={4}
-              required
-            />
-            <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting ? (
-                <>
-                  <Send className="w-4 h-4 mr-2 animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4 mr-2" />
-                  Send Message
-                </>
-              )}
-            </Button>
-            {submitStatus === "success" && (
-              <p className="text-green-400 text-sm">Message sent! I'll get back to you soon. 🚀</p>
-            )}
-          </form>
-
+        
+         
           <div className="flex gap-4 pt-6 border-t border-slate-700">
             <a href="https://github.com/DevSars24" target="_blank" rel="noopener noreferrer"><Github className="w-6 h-6" /></a>
             <a href="https://linkedin.com/in/saurabh-singh-25639a306" target="_blank" rel="noopener noreferrer"><Linkedin className="w-6 h-6" /></a>
