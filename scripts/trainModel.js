@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs-extra');
 
 const jsonlPath = path.join(__dirname, '../data/training.jsonl');
-const projectId = 'saurabh-portfolio-68d47'; // Your project ID
+const projectId = process.env.GOOGLE_PROJECT_ID || 'saurabh-portfolio-68d47'; // Fallback for local runs
 const displayName = 'sarvis-tuned-model';
 const region = 'us-central1';
 
