@@ -1,0 +1,164 @@
+[
+    {
+      "id": "frontend",
+      "title": "Frontend Projects",
+      "color": "cyan-400",
+      "description": "Interactive and responsive user interfaces built with modern frontend technologies.",
+      "projects": [
+        {
+          "title": "AI-SARVIS",
+          "desc": "Voice-activated AI assistant inspired by Iron Man's JARVIS — capable of performing real-time tasks like weather updates, Wikipedia searches, and AI chat.",
+          "techStack": ["HTML", "CSS", "JavaScript", "Web Speech API", "OpenWeatherMap API", "OpenAI GPT"],
+          "github": "https://github.com/DevSars24/AI-SARVIS",
+          "demoLink": "#",
+          "status": "Completed",
+          "lastUpdated": "2024-03-10",
+          "difficulty": "Intermediate",
+          "featured": true
+        },
+        {
+          "title": "Personal Portfolio Website",
+          "desc": "A clean and responsive personal portfolio showcasing education, projects, and contact details with smooth animations.",
+          "techStack": ["HTML", "CSS", "JavaScript"],
+          "github": "https://github.com/DevSars24/portfolio",
+          "demoLink": "#",
+          "status": "Completed",
+          "lastUpdated": "2024-05-15",
+          "difficulty": "Beginner",
+          "featured": false
+        }
+      ],
+      "learnings": [
+        "Learned to structure responsive web layouts with semantic HTML5 and CSS3 Grid/Flexbox.",
+        "Understood DOM manipulation, event handling, and real-time interaction using JavaScript.",
+        "Explored Web Speech and SpeechSynthesis APIs for voice-based control and AI integration.",
+        "Integrated external APIs like OpenWeatherMap, Google Maps, and Wikipedia for live data.",
+        "Enhanced UI/UX design skills — focusing on interactivity, animations, and accessibility."
+      ]
+    },
+    {
+      "id": "backend",
+      "title": "Backend Projects",
+      "color": "emerald-400",
+      "description": "Scalable and secure server-side applications with robust APIs.",
+      "projects": [
+        {
+          "title": "MERN Notes Backend",
+          "desc": "Backend server for the MERN Notes App built using Node.js, Express, and MongoDB. It provides clean and scalable REST APIs for CRUD operations on notes.",
+          "techStack": ["Node.js", "Express.js", "MongoDB", "Mongoose"],
+          "github": "https://github.com/DevSars24/mern-notes-backend",
+          "demoLink": "#",
+          "status": "Completed",
+          "lastUpdated": "2024-08-15",
+          "difficulty": "Intermediate",
+          "featured": true
+        },
+        {
+          "title": "Sun Tracker (Real-Time Device Tracking)",
+          "desc": "A futuristic real-time location tracker using Node.js, Express, and Socket.IO. Visualizes live location data on an interactive neon-themed map with real-time socket communication.",
+          "techStack": ["Node.js", "Express.js", "Socket.IO"],
+          "github": "https://github.com/DevSars24/tracking-device",
+          "demoLink": "#",
+          "status": "Completed",
+          "lastUpdated": "2024-09-20",
+          "difficulty": "Advanced",
+          "featured": true
+        }
+      ],
+      "learnings": [
+        "Structured RESTful API design using Express Router.",
+        "Environment configuration and modular backend architecture.",
+        "CRUD operations with MongoDB Atlas and Mongoose.",
+        "Error handling, validation, and scalability techniques."
+      ]
+    },
+    {
+      "id": "ml",
+      "title": "ML Integrated Projects",
+      "color": "amber-400",
+      "description": "AI and ML integrated full-stack solutions that blend data intelligence with real-world impact.",
+      "projects": [
+        {
+          "title": "Krishi Mitra (AI-Powered Farming Assistant)",
+          "desc": "A multilingual AI platform empowering 120+ million Indian farmers with insights on crop planning, weather alerts, irrigation, and market prices. Integrates Gemini AI, OpenWeather API, and MongoDB with a React-Flask architecture. Supports 22+ Indian languages for inclusive accessibility.",
+          "techStack": [
+            "React",
+            "Flask",
+            "MongoDB",
+            "Google Gemini AI",
+            "OpenWeather API",
+            "Framer Motion"
+          ],
+          "github": "https://github.com/DevSars24/krishi-mitra",
+          "demoLink": "#",
+          "status": "85% Completed",
+          "lastUpdated": "2025-10-25",
+          "difficulty": "Advanced",
+          "featured": true
+        },
+        {
+          "title": "Hope Hub (Holistic Outreach Platform)",
+          "desc": "A full-stack AI & ML-powered web app providing personalized guidance on health, nutrition, education, and skill development. Uses Gemini AI for natural language interactions and scikit-learn for disease prediction, NGO recommendations, and hospital finding via TF-IDF and Haversine models.",
+          "techStack": [
+            "React",
+            "Flask",
+            "scikit-learn",
+            "Google Gemini API",
+            "Pandas",
+            "Joblib"
+          ],
+          "github": "https://github.com/DevSars24/Hope-Hub",
+          "demoLink": "#",
+          "status": "Completed",
+          "lastUpdated": "2025-10-10",
+          "difficulty": "Advanced",
+          "featured": true
+        }
+      ],
+      "learnings": [
+        "Integrated Flask with React for seamless AI-driven full-stack experiences.",
+        "Implemented real-world ML workflows: data preprocessing, model training, and deployment.",
+        "Worked with scikit-learn models (Random Forest, TF-IDF) for intelligent recommendations.",
+        "Used Gemini API for context-aware conversational intelligence and responses.",
+        "Learned scalable architecture design for production-ready AI solutions with multilingual support.",
+        "Gained experience handling large datasets and building accessible, user-centric ML apps."
+      ]
+    },
+    {
+      "id": "genai",
+      "title": "GenAI Projects",
+      "color": "pink-400",
+      "description": "Innovative AI-driven tools leveraging generative AI technologies.",
+      "projects": [
+        {
+          "title": "AI Research Mentor",
+          "desc": "A full-stack AI-powered chatbot acting as a personal mentor for students and developers exploring AI, ML, and programming. Uses RAG, Gemini API, and embeddings for contextual, step-by-step guidance.",
+          "techStack": ["React", "Node.js", "Gemini API", "RAG", "LangChain"],
+          "github": "https://github.com/DevSars24/AI-Research-Mentor",
+          "demoLink": "#",
+          "status": "Completed",
+          "lastUpdated": "2025-10-01",
+          "difficulty": "Advanced",
+          "featured": true
+        },
+        {
+          "title": "Codeify (AI Code Reviewer Frontend)",
+          "desc": "A modern React + Vite frontend integrated with GoogleGenAI for AI-driven code reviewing, improvement, and debugging. Includes Monaco Editor, Tailwind CSS, Markdown rendering, and dark mode toggle.",
+          "techStack": ["React", "Vite", "Tailwind CSS", "GoogleGenAI", "Monaco Editor"],
+          "github": "https://github.com/DevSars24/codeify",
+          "demoLink": "#",
+          "status": "Completed",
+          "lastUpdated": "2025-08-20",
+          "difficulty": "Intermediate",
+          "featured": true
+        }
+      ],
+      "learnings": [
+        "Engineered full-stack GenAI systems integrating RAG pipelines with Gemini API and LangChain.",
+        "Explored semantic search, context retention, and memory-driven conversational AI.",
+        "Developed modular frontend architecture using React, Vite, and Tailwind CSS.",
+        "Integrated AI-powered code analysis with real-time syntax highlighting and markdown rendering.",
+        "Refined prompt engineering techniques for multi-turn contextual AI interactions."
+      ]
+    }
+  ]
