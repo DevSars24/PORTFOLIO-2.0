@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------
-   Hero.jsx  —  Modern Dark + Glass/Frosted Theme
+   Hero.jsx  —  Enhanced Modern Dark + Glass/Frosted Theme with Dynamic Background
    by Saurabh Singh Rajput | IIIT Bhagalpur
    -------------------------------------------------------------------------- */
 
@@ -9,7 +9,6 @@
    import { useEffect, useState } from "react";
    import profile from "../assets/profile.png";
    import { Link } from "react-router-dom";
-
    
    // Tech icons
    import html from "../assets/html.png";
@@ -27,81 +26,29 @@
    import { useStats } from "../context/StatsContext";
    
    const Hero = () => {
-     const { totalLikes, totalViews, incrementViews, loading } = useStats();
-   
-     // Animation variants
-     const containerVariants = {
-       hidden: { opacity: 0 },
-       visible: {
-         opacity: 1,
-         transition: { staggerChildren: 0.2, delayChildren: 0.1 },
-       },
-     };
-     const childVariants = {
-       hidden: { opacity: 0, y: 20 },
-       visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-     };
-     const imageVariants = {
-       hidden: { scale: 0.8, rotate: -5 },
-       visible: {
-         scale: 1,
-         rotate: 0,
-         transition: { type: "spring", stiffness: 100, duration: 0.3 },
-       },
-     };
-     const statsVariants = {
-       hidden: { opacity: 0, scale: 0.8, x: 20 },
-       visible: {
-         opacity: 1,
-         scale: 1,
-         x: 0,
-         transition: { type: "spring", stiffness: 120, damping: 10, delay: 0.5 },
-       },
-     };
-     const quoteVariants = {
-       hidden: { opacity: 0, y: 10 },
-       visible: { opacity: 1, y: 0, transition: { duration: 0.1, ease: "easeInOut" } },
-     };
-   
-     const skills = [html, css, js, react, node, express, mongo, tailwind, framer, python, git];
-     const quotes = [
-       `if (life.isHard()) {
-     keepGoing();
-     console.log("Every bug is fixable — even the ones inside you.");
-   }`,
-       `for (let day of life) {
-     learn(day);
-     grow(day);
-     commit("self improvement");
-   }`,
-       `if (failure) {
-     debugMistakes();
-   } else {
-     console.log("Deploy confidence 🚀");
-   }`,
-       `while (dreams.notAchieved()) {
-     code();
-     sleep();
-     repeat();
-   }`,
-       `if (youBelieveInYourself) {
-     console.log("return success;");
-   } else {
-     throw new Error("LackOfFaithException");
-   }`,
-     ];
+     const { totalViews, incrementViews, loading } = useStats();
    
      const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+   
+     const skills = [html, css, js, react, node, express, mongo, tailwind, framer, python, git];
+   
+     const quotes = [
+       `if (life.isHard()) { keepGoing(); console.log("Every bug is fixable."); }`,
+       `for (let day of life) { learn(day); grow(day); commit("self improvement"); }`,
+       `if (failure) { debugMistakes(); } else { console.log("Deploy confidence 🚀"); }`,
+       `while (dreams.notAchieved()) { code(); sleep(); repeat(); }`,
+       `if (youBelieveInYourself) { console.log("return success;"); } else { throw new Error("LackOfFaithException"); }`,
+     ];
    
      useEffect(() => {
        const timer = setInterval(() => {
          setCurrentQuoteIndex((prev) => (prev + 1) % quotes.length);
        }, 5000);
        return () => clearInterval(timer);
-     }, [quotes.length]);
+     }, []);
    
      useEffect(() => {
-       if (!loading) incrementViews().catch((err) => console.error("View increment failed:", err));
+       if (!loading) incrementViews().catch(console.error);
      }, [loading, incrementViews]);
    
      if (loading)
@@ -111,15 +58,65 @@
          </div>
        );
    
+     // --- Animation Variants ---
+     const containerVariants = {
+       hidden: { opacity: 0 },
+       visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+     };
+   
+     const childVariants = {
+       hidden: { opacity: 0, y: 20 },
+       visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+     };
+   
+     const imageVariants = {
+       hidden: { scale: 0.8, rotate: -5 },
+       visible: { scale: 1, rotate: 0, transition: { type: "spring", stiffness: 100, duration: 0.3 } },
+     };
+   
      return (
        <section
          id="hero"
-         className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-[#0B1220] text-[#E2E8F0]"
+         className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-gradient-to-br from-[#0B1220] via-[#121826] to-[#0B1220] text-[#E2E8F0]"
        >
-         {/* Background glows */}
-         <div className="absolute inset-0 pointer-events-none">
-           <div className="absolute top-10 left-5 w-28 h-28 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
-           <div className="absolute bottom-10 right-5 w-32 h-32 bg-purple-600/10 rounded-full blur-3xl animate-pulse" />
+         {/* --- Innovative Animated Background --- */}
+         <div className="absolute inset-0 overflow-hidden">
+           {/* Animated blobs */}
+           {[...Array(6)].map((_, i) => (
+             <motion.div
+               key={i}
+               className="absolute rounded-full"
+               style={{
+                 width: `${80 + i * 20}px`,
+                 height: `${80 + i * 20}px`,
+                 background: `radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)`,
+                 top: `${Math.random() * 100}%`,
+                 left: `${Math.random() * 100}%`,
+               }}
+               animate={{
+                 x: [0, -20 + i * 5, 0],
+                 y: [0, 15 - i * 3, 0],
+                 scale: [1, 1.3, 1],
+                 opacity: [0.3, 0.6, 0.3],
+               }}
+               transition={{
+                 duration: 15 + i * 2,
+                 repeat: Infinity,
+                 ease: "easeInOut",
+                 delay: i,
+               }}
+             />
+           ))}
+           {/* Particle rain */}
+           {[...Array(40)].map((_, i) => (
+             <motion.div
+               key={`particle-${i}`}
+               className="absolute w-1 h-1 bg-indigo-400 rounded-full"
+               style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}
+               animate={{ y: ["0%", "110%"] }}
+               transition={{ duration: 8 + Math.random() * 4, repeat: Infinity, ease: "linear", delay: Math.random() * 5 }}
+             />
+           ))}
          </div>
    
          <motion.div
@@ -128,20 +125,42 @@
            animate="visible"
            variants={containerVariants}
          >
-           {/* Profile */}
+           {/* Profile Image */}
            <motion.div variants={imageVariants} className="mb-6 sm:mb-8">
              <div className="relative group">
                <img
                  src={profile}
                  alt="Saurabh Singh Rajput"
                  className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full object-cover 
-                 border-4 border-[#1E293B]/40 bg-[#0F1724]/40 backdrop-blur-md 
-                 shadow-2xl ring-2 ring-indigo-500/40 group-hover:ring-indigo-400/70 transition-all"
+                 border-4 border-[#1E293B]/40 bg-[#0F1724]/40 backdrop-blur-md shadow-2xl
+                 ring-2 ring-indigo-500/40 group-hover:ring-indigo-400/70 transition-all"
                />
+               {/* Floating tech orbit */}
+               {skills.map((tech, idx) => (
+                 <motion.img
+                   key={idx}
+                   src={tech}
+                   alt="tech-icon"
+                   className="absolute w-8 h-8 md:w-10 md:h-10 rounded-full"
+                   initial={{ opacity: 0, scale: 0 }}
+                   animate={{
+                     rotate: [0, 360],
+                     x: [0, 50, 0],
+                     y: [0, -40, 0],
+                     opacity: [0, 1, 0],
+                     scale: [0, 1, 0.8],
+                   }}
+                   transition={{ duration: 12 + idx, repeat: Infinity, ease: "easeInOut", delay: idx * 0.3 }}
+                   style={{
+                     top: `${Math.random() * 100}%`,
+                     left: `${Math.random() * 100}%`,
+                   }}
+                 />
+               ))}
              </div>
            </motion.div>
    
-           {/* Intro */}
+           {/* Intro Text */}
            <motion.h1
              variants={childVariants}
              className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r 
@@ -155,24 +174,19 @@
              className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto mb-6"
            >
              A passionate Full Stack Developer & AI enthusiast from IIIT Bhagalpur 🚀  
-             Crafting ideas into code, exploring GenAI, and designing systems that scale ⚙️
+             Crafting ideas into code, exploring GenAI, and designing scalable systems ⚙️
            </motion.p>
    
            {/* Buttons */}
-           <motion.div
-             variants={childVariants}
-             className="flex flex-col sm:flex-row gap-3 justify-center mb-8"
-           >
-           <Button
-             asChild
-             size="lg"
-             className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 
-             text-white font-medium text-sm sm:text-base shadow-lg shadow-indigo-500/20"
-           >
-             <Link to="/projects">
-               View Projects
-             </Link>
-           </Button>
+           <motion.div variants={childVariants} className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+             <Button
+               asChild
+               size="lg"
+               className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 
+               text-white font-medium text-sm sm:text-base shadow-lg shadow-indigo-500/20"
+             >
+               <Link to="/projects">View Projects</Link>
+             </Button>
    
              <Button
                variant="outline"
@@ -191,30 +205,20 @@
    
            {/* Socials */}
            <motion.div variants={childVariants} className="flex gap-6 justify-center mb-10">
-             <a
-               href="https://github.com/DevSars24"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="hover:scale-110 transition"
-             >
+             <a href="https://github.com/DevSars24" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
                <Github className="w-7 h-7 text-slate-300 hover:text-indigo-400" />
              </a>
-             <a
-               href="http://linkedin.com/in/saurabh-singh-rajput-25639a306"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="hover:scale-110 transition"
-             >
+             <a href="http://linkedin.com/in/saurabh-singh-rajput-25639a306" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
                <Linkedin className="w-7 h-7 text-slate-300 hover:text-indigo-400" />
              </a>
            </motion.div>
    
-           {/* Developer Quote Card (Frosted Glass) */}
+           {/* Developer Quote Card */}
            <motion.div
              key={currentQuoteIndex}
-             variants={quoteVariants}
-             initial="hidden"
-             animate="visible"
+             variants={childVariants}
+             initial={{ opacity: 0, y: 10 }}
+             animate={{ opacity: 1, y: 0 }}
              className="mx-auto mb-12 w-full sm:w-[85%] md:w-[75%] lg:w-[70%]
              backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg rounded-2xl text-left
              p-6 sm:p-8 font-mono text-slate-200"
@@ -227,8 +231,7 @@
            {/* Tech Stack Marquee */}
            <motion.div
              variants={childVariants}
-             className="relative w-full overflow-hidden py-8 
-             backdrop-blur-md bg-[#0F1724]/60 border border-indigo-500/10 rounded-xl"
+             className="relative w-full overflow-hidden py-8 backdrop-blur-md bg-[#0F1724]/60 border border-indigo-500/10 rounded-xl"
            >
              <h2 className="text-xl font-semibold text-indigo-400 mb-6">⚡ My Tech Stack</h2>
              <div className="relative flex overflow-x-hidden">
@@ -248,20 +251,14 @@
                </motion.div>
              </div>
            </motion.div>
-         </motion.div>
    
-         {/* Stats (Glass Chip) */}
-         <motion.div
-           className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2"
-           variants={statsVariants}
-           initial="hidden"
-           animate="visible"
-         >
-           <div className="inline-flex items-center gap-2 px-4 py-2 
-           backdrop-blur-lg bg-white/10 border border-white/20 rounded-full shadow-md">
-             <Eye className="w-4 h-4 text-indigo-400" />
-             <span className="text-sm text-slate-200">{totalViews.toLocaleString()} Views</span>
-           </div>
+           {/* Stats (Glass Chip) */}
+           <motion.div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+             <div className="inline-flex items-center gap-2 px-4 py-2 backdrop-blur-lg bg-white/10 border border-white/20 rounded-full shadow-md">
+               <Eye className="w-4 h-4 text-indigo-400" />
+               <span className="text-sm text-slate-200">{totalViews.toLocaleString()} Views</span>
+             </div>
+           </motion.div>
          </motion.div>
        </section>
      );
