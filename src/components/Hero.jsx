@@ -193,13 +193,32 @@
              Hi, I’m <span className="text-indigo-400">Saurabh Singh Rajput</span>
            </motion.h1>
    
-           <motion.p
-             variants={childVariants}
-             className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto mb-6"
-           >
-             A passionate Full Stack Developer & AI enthusiast from IIIT Bhagalpur 🚀  
-             Crafting ideas into code, exploring GenAI, and designing scalable systems ⚙️
-           </motion.p>
+           <motion.div
+  className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto mb-6"
+  initial="hidden"
+  animate="visible"
+  variants={{
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.3 } },
+  }}
+>
+  {[
+    "A passionate Full Stack Developer & AI enthusiast from IIIT Bhagalpur ",
+    "Crafting ideas into code, exploring GenAI, and designing scalable systems ⚙️"
+  ].map((line, index) => (
+    <motion.p
+      key={index}
+      variants={{
+        hidden: { opacity: 0, y: 10 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+      }}
+      className="mb-2"
+    >
+      {line}
+    </motion.p>
+  ))}
+</motion.div>
+
    
            {/* Buttons */}
            <motion.div variants={childVariants} className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
