@@ -33,12 +33,36 @@
      const skills = [html, css, js, react, node, express, mongo, tailwind, framer, python, git];
    
      const quotes = [
-       `if (life.isHard()) { keepGoing(); console.log("Every bug is fixable."); }`,
-       `for (let day of life) { learn(day); grow(day); commit("self improvement"); }`,
-       `if (failure) { debugMistakes(); } else { console.log("Deploy confidence 🚀"); }`,
-       `while (dreams.notAchieved()) { code(); sleep(); repeat(); }`,
-       `if (youBelieveInYourself) { console.log("return success;"); } else { throw new Error("LackOfFaithException"); }`,
-     ];
+      `if (life.isHard()) {
+        keepGoing();
+        console.log("Every bug is fixable.");
+      }`,
+    
+      `for (let day of life) {
+        learn(day);
+        grow(day);
+        commit("self improvement");
+      }`,
+    
+      `if (failure) {
+        debugMistakes();
+      } else {
+        console.log("Deploy confidence 🚀");
+      }`,
+    
+      `while (dreams.notAchieved()) {
+        code();
+        sleep();
+        repeat();
+      }`,
+    
+      `if (youBelieveInYourself) {
+        console.log("return success;");
+      } else {
+        throw new Error("LackOfFaithException");
+      }`,
+    ];
+    ;
    
      useEffect(() => {
        const timer = setInterval(() => {
