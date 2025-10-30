@@ -1,9 +1,8 @@
 // src/App.jsx
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { StatsProvider } from "./context/StatsContext";
-import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
 
 // ✅ Lazy-loaded components
@@ -14,10 +13,23 @@ const Projects = lazy(() => import("./components/Projects"));
 const Contact = lazy(() => import("./components/AICompanion"));
 const WelcomeScreen = lazy(() => import("./components/WelcomeScreen"));
 
+/* ------------------------------- ScrollToTop ------------------------------- */
+// ⚡ Keeps the scroll position consistent when navigating routes
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+
+  return null; // No UI needed
+}
+
+/* ------------------------------- AppContent ------------------------------- */
 function AppContent() {
   const [showWelcome, setShowWelcome] = useState(true);
 
-  // ✅ Preload route chunks when browser is idle (for smoother route transitions)
+  // ✅ Preload route chunks when browser is idle (smooth transitions)
   useEffect(() => {
     if ("requestIdleCallback" in window) {
       requestIdleCallback(() => {
@@ -26,7 +38,7 @@ function AppContent() {
         import("./components/AICompanion");
       });
     } else {
-      // fallback for older browsers
+      // Fallback for older browsers
       setTimeout(() => {
         import("./components/Projects");
         import("./components/About");
@@ -37,8 +49,8 @@ function AppContent() {
 
   // ✅ Simple loader
   const Loader = () => (
-    <div className="flex items-center justify-center h-screen text-white">
-      Loading...
+    <div className="flex items-center justify-center h-screen text-white bg-[#0B1220]">
+      <p className="animate-pulse text-lg tracking-wide">Loading...</p>
     </div>
   );
 
@@ -50,7 +62,7 @@ function AppContent() {
         </Suspense>
       ) : (
         <BrowserRouter>
-          <ScrollToTop /> {/* ✅ smooth scroll restore */}
+          <ScrollToTop /> {/* ✅ Inline function now handled locally */}
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route
@@ -101,6 +113,7 @@ function AppContent() {
   );
 }
 
+/* ------------------------------- App Wrapper ------------------------------- */
 function App() {
   return (
     <StatsProvider>
