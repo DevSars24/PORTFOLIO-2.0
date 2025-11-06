@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------
-   Hero.jsx — Aurora Pro Dark UI/UX Theme (Violet + Indigo + Cyan Glow)
+   Hero.jsx — Professional Developer Dark Theme + Subtle Particle Animation
    Crafted by Saurabh Singh Rajput | IIIT Bhagalpur
    -------------------------------------------------------------------------- */
 
@@ -7,7 +7,7 @@
    import { Github, Linkedin, Eye } from "lucide-react";
    import { Button } from "@/components/ui/button";
    import { useEffect, useState } from "react";
-   import { Link } from "react-router-dom";
+   // import { Link } from "react-router-dom"; // ✅ Removed since we're using hash links for SPA scrolling
    import profile from "../assets/profile.png";
    
    import html from "../assets/html.png";
@@ -24,9 +24,7 @@
    
    import { useStats } from "../context/StatsContext";
    
-   /* --------------------------------------------------------------------------
-      Typing Animation Component
-   -------------------------------------------------------------------------- */
+   /* ----------------------------- Type Animation ---------------------------- */
    const TypeAnimation = () => {
      const roles = [
        "Full Stack Developer",
@@ -35,7 +33,6 @@
        "Learning DevOps",
        "An Aspiring SDE 🚀",
      ];
-   
      const [index, setIndex] = useState(0);
      const [displayText, setDisplayText] = useState("");
      const [deleting, setDeleting] = useState(false);
@@ -49,7 +46,8 @@
              ? current.substring(0, prev.length - 1)
              : current.substring(0, prev.length + 1)
          );
-         if (!deleting && displayText === current) setTimeout(() => setDeleting(true), 1500);
+         if (!deleting && displayText === current)
+           setTimeout(() => setDeleting(true), 1200);
          else if (deleting && displayText === "") {
            setDeleting(false);
            setIndex((prev) => (prev + 1) % roles.length);
@@ -59,30 +57,62 @@
      }, [displayText, deleting, index]);
    
      return (
-       <motion.span
-         className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-indigo-400 to-cyan-400 font-semibold"
-         animate={{ opacity: [0.8, 1, 0.8] }}
-         transition={{ duration: 2, repeat: Infinity }}
-       >
+       <motion.span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-blue-400 to-cyan-400 font-semibold">
          {displayText}
        </motion.span>
      );
    };
    
-   /* --------------------------------------------------------------------------
-      Hero Section (Violet + Indigo Glow Theme)
-   -------------------------------------------------------------------------- */
+   /* ----------------------------- Particle Layer ---------------------------- */
+   const ParticleLayer = () => {
+     const particles = Array.from({ length: 25 }); // 25 subtle particles
+     return (
+       <div className="absolute inset-0 overflow-hidden z-0">
+         {particles.map((_, i) => {
+           const size = Math.random() * 5 + 2; // 2–7px
+           const top = Math.random() * 100;
+           const left = Math.random() * 100;
+           const duration = 10 + Math.random() * 10; // 10–20s
+           const delay = Math.random() * 5;
+   
+           return (
+             <motion.div
+               key={i}
+               className="absolute rounded-full bg-blue-400/30 blur-[2px]"
+               style={{
+                 width: `${size}px`,
+                 height: `${size}px`,
+                 top: `${top}%`,
+                 left: `${left}%`,
+               }}
+               animate={{
+                 y: ["0%", "10%", "0%"],
+                 x: ["0%", "5%", "0%"],
+                 opacity: [0.3, 0.8, 0.3],
+               }}
+               transition={{
+                 duration,
+                 delay,
+                 repeat: Infinity,
+                 ease: "easeInOut",
+               }}
+             />
+           );
+         })}
+       </div>
+     );
+   };
+   
+   /* ------------------------------- Hero Section ---------------------------- */
    const Hero = () => {
-     const { totalViews, incrementViews, loading } = useStats();
+     const { totalViews, loading } = useStats(); // ✅ Removed incrementViews to avoid error
      const skills = [html, css, js, react, node, express, mongo, tailwind, framer, python, git];
    
-     useEffect(() => {
-       if (!loading) incrementViews().catch(console.error);
-     }, [loading, incrementViews]);
+     // ✅ Removed useEffect that called incrementViews()
    
      if (loading)
        return (
-         <div className="min-h-screen flex items-center justify-center text-cyan-400 font-medium">
+         <div className="min-h-screen flex items-center justify-center text-orange-400 font-medium">
            Loading stats...
          </div>
        );
@@ -100,100 +130,83 @@
        <section
          id="hero"
          className="relative flex flex-col justify-center items-center text-center overflow-hidden
-         bg-[radial-gradient(circle_at_30%_20%,#030014_0%,#0a0118_100%)]
-         text-[#E5E7EB] pt-24 pb-16 min-h-[calc(100vh-4rem)]"
+         bg-gradient-to-br from-orange-50/20 via-slate-900 to-blue-900/50 text-[#E5E7EB] pt-24 pb-16 min-h-[calc(100vh-4rem)]"
        >
-         {/* -- Ambient Gradient Lights -- */}
+         {/* Particle Background Layer */}
+         <ParticleLayer />
+   
+         {/* Minimal gradient ambience – adjusted for light orange-blue theme */}
          <motion.div
-           className="absolute -top-40 right-[-10%] w-[30rem] h-[30rem] bg-gradient-to-tr from-violet-500/30 via-indigo-400/20 to-transparent blur-[150px]"
-           animate={{ opacity: [0.4, 0.6, 0.4], y: [0, 30, 0] }}
+           className="absolute -top-40 right-[-10%] w-[25rem] h-[25rem]
+           bg-gradient-to-tr from-orange-500/20 via-blue-500/20 to-cyan-400/20 blur-[120px]"
+           animate={{ opacity: [0.3, 0.4, 0.3], y: [0, 20, 0] }}
+           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+         />
+         <motion.div
+           className="absolute bottom-[-10%] left-[-10%] w-[25rem] h-[25rem]
+           bg-gradient-to-tr from-blue-400/20 via-orange-400/20 to-yellow-400/20 blur-[120px]"
+           animate={{ scale: [1, 1.03, 1] }}
            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
          />
-         <motion.div
-           className="absolute bottom-[-10%] left-[-10%] w-[35rem] h-[35rem] bg-gradient-to-tr from-cyan-400/25 to-indigo-500/15 blur-[160px]"
-           animate={{ scale: [1, 1.05, 1] }}
-           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-         />
    
-         {/* -- Main Content -- */}
+         {/* Main Content */}
          <motion.div
            className="relative z-10 w-full max-w-6xl px-6 flex flex-col md:flex-row items-center justify-between gap-12"
            initial="hidden"
            animate="visible"
          >
-           {/* Profile */}
+           {/* Profile – Professional circle */}
            <motion.div
              className="flex justify-center flex-1"
              variants={fadeIn}
              custom={0.4}
-             initial="hidden"
-             animate="visible"
            >
-             <div className="relative group">
-               <motion.div
-                 className="absolute inset-0 rounded-full bg-gradient-to-tr from-violet-400/25 via-cyan-400/15 to-transparent blur-2xl opacity-70 group-hover:opacity-100 transition-all"
-                 animate={{ scale: [1, 1.05, 1] }}
-                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-               />
-               <img
-                 src={profile}
-                 alt="Saurabh Singh Rajput"
-                 className="w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 rounded-full object-cover 
-                 border-4 border-indigo-400/40 shadow-[0_0_50px_rgba(139,92,246,0.5)]
-                 group-hover:shadow-[0_0_80px_rgba(139,92,246,0.7)] transition-all duration-700"
-               />
-             </div>
+             <img
+               src={profile}
+               alt="Saurabh Singh Rajput"
+               className="w-50 h-50 sm:w-55 sm:h-55 md:w-80 md:h-80 rounded-full object-cover 
+               border-2 border-orange-500/50 shadow-[0_0_30px_rgba(251,146,60,0.3)]
+               hover:shadow-[0_0_50px_rgba(251,146,60,0.5)] transition-all duration-700"
+             />
            </motion.div>
    
-           {/* Text Section */}
+           {/* Text */}
            <motion.div
              className="text-center md:text-left flex-1"
              variants={fadeIn}
              custom={0.2}
-             initial="hidden"
-             animate="visible"
            >
              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-5 leading-tight tracking-tight">
-               <motion.span
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 1 }}
-                 className="block bg-gradient-to-r from-violet-400 via-indigo-400 to-cyan-400 text-transparent bg-clip-text"
-               >
+               <motion.span className="block bg-gradient-to-r from-orange-400 via-blue-400 to-cyan-400 text-transparent bg-clip-text">
                  Hi, I’m Saurabh Singh Rajput
                </motion.span>
              </h1>
-   
-             <motion.p
-               className="text-lg sm:text-xl font-medium mb-3 text-slate-300"
-               animate={{ opacity: [0.7, 1, 0.7] }}
-               transition={{ duration: 3, repeat: Infinity }}
-             >
+             <p className="text-lg sm:text-xl font-medium mb-3 text-slate-300">
                <TypeAnimation />
-             </motion.p>
-   
-             <p className="text-base sm:text-lg text-slate-400 mb-8 leading-relaxed max-w-xl">
-               I’m a <span className="text-violet-300 font-medium">Full Stack Developer</span> &{" "}
-               <span className="text-cyan-300 font-medium">AI Enthusiast</span> from{" "}
-               <span className="text-indigo-300 font-medium">IIIT Bhagalpur</span>. I craft
-               immersive digital experiences blending design, software, and intelligence.
+             </p>
+             <p className="text-base sm:text-lg text-slate-200 mb-8 leading-relaxed max-w-xl">
+               I’m a <span className="bg-gradient-to-r from-orange-400 to-amber-400 text-transparent bg-clip-text font-medium">Full Stack Developer</span> &{" "}
+               <span className="bg-gradient-to-r from-blue-400 to-cyan-400 text-transparent bg-clip-text font-medium">AI Enthusiast</span> from{" "}
+               <span className="bg-gradient-to-r from-orange-400 to-red-400 text-transparent bg-clip-text font-medium">IIIT Bhagalpur</span>. 
+               I build scalable and elegant web systems with focus on performance & design.
              </p>
    
              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                <Button
                  asChild
                  size="lg"
-                 className="bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-400 text-white font-semibold 
-                 shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_50px_rgba(99,102,241,0.6)] 
-                 hover:scale-[1.05] transition-all duration-300"
+                 className="bg-gradient-to-r from-orange-600 via-blue-600 to-cyan-500 text-white font-semibold 
+                 shadow-[0_0_20px_rgba(251,146,60,0.3)] hover:shadow-[0_0_30px_rgba(251,146,60,0.5)] 
+                 hover:scale-[1.03] transition-all duration-300"
                >
-                 <Link to="/projects">✨ View Projects</Link>
+                 {/* ✅ Changed to <a href="#projects"> for SPA hash scrolling */}
+                 <a href="#projects">✨ View Projects</a>
                </Button>
    
                <Button
                  variant="outline"
                  size="lg"
-                 className="border-violet-400 text-violet-300 hover:bg-violet-500/10 transition-all hover:scale-[1.03]"
+                 className="border-orange-500 text-orange-300 hover:bg-orange-500/10 transition-all hover:scale-[1.02]"
                >
                  <a
                    href="https://linkedin.com/in/saurabh-singh-rajput-25639a306"
@@ -206,36 +219,25 @@
              </div>
    
              <div className="flex gap-6 mt-8 justify-center md:justify-start">
-               <a
-                 href="https://github.com/DevSars24"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="hover:scale-125 transition"
-               >
-                 <Github className="w-6 h-6 text-slate-400 hover:text-violet-400" />
+               <a href="https://github.com/DevSars24" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
+                 <Github className="w-6 h-6 text-slate-400 hover:text-orange-400" />
                </a>
-               <a
-                 href="https://linkedin.com/in/saurabh-singh-rajput-25639a306"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="hover:scale-125 transition"
-               >
-                 <Linkedin className="w-6 h-6 text-slate-400 hover:text-indigo-300" />
+               <a href="https://linkedin.com/in/saurabh-singh-rajput-25639a306" target="_blank" rel="noopener noreferrer" className="hover:scale-125 transition">
+                 <Linkedin className="w-6 h-6 text-slate-400 hover:text-blue-400" />
                </a>
              </div>
            </motion.div>
          </motion.div>
    
-         {/* Floating Tech Stack Carousel */}
+         {/* Tech Stack */}
          <motion.div
-           className="relative z-10 mt-16 w-[90%] sm:w-[80%] md:w-[70%] backdrop-blur-lg bg-[#0B021A]/60 
-           border border-violet-400/10 rounded-xl py-6 px-4 shadow-[0_0_25px_rgba(139,92,246,0.15)]"
+           className="relative z-10 mt-16 w-[90%] sm:w-[80%] md:w-[70%]
+           backdrop-blur-lg bg-white/10 border border-orange-500/30 rounded-xl py-6 px-4
+           shadow-[0_0_20px_rgba(251,146,60,0.15)]"
            variants={fadeIn}
            custom={1.2}
-           initial="hidden"
-           animate="visible"
          >
-           <h2 className="text-lg sm:text-xl font-semibold text-violet-300 mb-6 text-center">
+           <h2 className="text-lg sm:text-xl font-semibold text-slate-200 mb-6 text-center">
              ⚡ Tech Stack
            </h2>
            <div className="relative flex overflow-x-hidden">
@@ -249,9 +251,7 @@
                    key={i}
                    src={icon}
                    alt="tech-icon"
-                   className="w-10 h-10 sm:w-12 sm:h-12 hover:scale-125 transition-transform duration-300 opacity-80 hover:opacity-100"
-                   animate={{ y: [0, -4, 0], rotate: [0, 3, -3, 0] }}
-                   transition={{ duration: 3 + Math.random() * 2, repeat: Infinity }}
+                   className="w-10 h-10 sm:w-12 sm:h-12 hover:scale-110 transition-transform duration-300 opacity-80 hover:opacity-100 filter drop-shadow-lg"
                  />
                ))}
              </motion.div>
@@ -265,9 +265,12 @@
            animate={{ opacity: 1 }}
            transition={{ delay: 1 }}
          >
-           <div className="inline-flex items-center gap-2 px-4 py-2 backdrop-blur-xl bg-gradient-to-r from-[#1E1B4B]/80 to-[#312E81]/70 border border-violet-400/30 rounded-full shadow-[0_0_15px_rgba(139,92,246,0.3)]">
-             <Eye className="w-4 h-4 text-violet-300 animate-pulse" />
-             <span className="text-sm text-violet-100">{totalViews.toLocaleString()} Views</span>
+           <div className="inline-flex items-center gap-2 px-4 py-2 backdrop-blur-xl
+           bg-white/10 border border-orange-500/30 rounded-full shadow-[0_0_10px_rgba(251,146,60,0.2)]">
+             <Eye className="w-4 h-4 text-orange-400 animate-pulse" />
+             <span className="text-sm text-slate-200">
+               {totalViews.toLocaleString()} Views
+             </span>
            </div>
          </motion.div>
        </section>
@@ -275,5 +278,3 @@
    };
    
    export default Hero;
-   
-   

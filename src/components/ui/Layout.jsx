@@ -1,17 +1,15 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
+// src/components/ui/Layout.jsx
+import React from "react";
+import Navbar from "../Navbar"; // Assuming you import it here
 
-const Layout = () => {
+export default function Layout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen bg-[#0B1220]"> {/* Dark bg for consistency */}
       <Navbar />
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      <Footer />
+      <div className="pt-20 md:pt-16"> {/* ✅ pt-20 for mobile (taller nav + safe), pt-16 desktop. Adjust based on your nav height (py-4 ~4rem + borders) */}
+        {children}
+      </div>
+      {/* Optional: Footer here if not in a separate component */}
     </div>
   );
-};
-
-export default Layout;
+}

@@ -1,7 +1,5 @@
 // src/context/StatsContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
-import { doc, getDoc, setDoc, increment } from 'firebase/firestore';
-import { db } from '../firebase';
 
 const StatsContext = createContext();
 
@@ -16,76 +14,36 @@ export const StatsProvider = ({ children }) => {
   const [totalViews, setTotalViews] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // REMOVED: Old enableIndexedDbPersistence useEffect (no longer needed—handled in firebase.js)
-
-  // Fetch globals with safe create/update + retry
   useEffect(() => {
-    const fetchStats = async (retries = 3) => {
-      const statRef = doc(db, 'stats', 'portfolio');
-      for (let i = 0; i < retries; i++) {
-        try {
-          const snap = await getDoc(statRef);
-          if (snap.exists()) {
-            const data = snap.data();
-            setTotalLikes(data.likes || 0);
-            setTotalViews(data.views || 0);
-          } else {
-            // Create doc if missing
-            await setDoc(statRef, { likes: 0, views: 0 }, { merge: true });
-            setTotalLikes(0);
-            setTotalViews(0);
-          }
-          setLoading(false);
-          return; // Success
-        } catch (error) {
-          console.error(`Fetch attempt ${i + 1} failed:`, error);
-          if (i === retries - 1) {
-            // Fallback to local
-            setTotalLikes(parseInt(localStorage.getItem('totalPortfolioLikes') || '0', 10));
-            setTotalViews(parseInt(localStorage.getItem('totalPortfolioViews') || '0', 10));
-            setLoading(false);
-          }
-          await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
-        }
-      }
-    };
-    fetchStats();
+    // Load locally stored values
+    const savedLikes = parseInt(localStorage.getItem('totalPortfolioLikes') || '0', 10);
+    const savedViews = parseInt(localStorage.getItem('totalPortfolioViews') || '0', 10);
+    setTotalLikes(savedLikes);
+    setTotalViews(savedViews);
+
+    // Only count one view per session
+    if (!sessionStorage.getItem('viewedToday')) {
+      sessionStorage.setItem('viewedToday', 'true');
+      const newViews = savedViews + 1;
+      setTotalViews(newViews);
+      localStorage.setItem('totalPortfolioViews', newViews.toString());
+    }
+
+    setLoading(false);
   }, []);
 
-  const incrementViews = async () => {
-    if (sessionStorage.getItem('viewedToday')) return;
-    sessionStorage.setItem('viewedToday', 'true');
-
-    const statRef = doc(db, 'stats', 'portfolio');
-    try {
-      await setDoc(statRef, { views: increment(1) }, { merge: true });
-      setTotalViews(prev => prev + 1);
-    } catch (error) {
-      console.error('View increment failed:', error);
-      const newViews = parseInt(localStorage.getItem('totalPortfolioViews') || '0', 10) + 1;
-      localStorage.setItem('totalPortfolioViews', newViews.toString());
-      setTotalViews(newViews);
-    }
-  };
-
-  const incrementLikes = async () => {
+  const incrementLikes = () => {
     if (localStorage.getItem('portfolioLiked')) return;
     localStorage.setItem('portfolioLiked', 'true');
-
-    const statRef = doc(db, 'stats', 'portfolio');
-    try {
-      await setDoc(statRef, { likes: increment(1) }, { merge: true });
-      setTotalLikes(prev => prev + 1);
-    } catch (error) {
-      console.error('Like increment failed:', error);
-      const newLikes = parseInt(localStorage.getItem('totalPortfolioLikes') || '0', 10) + 1;
-      localStorage.setItem('totalPortfolioLikes', newLikes.toString());
-      setTotalLikes(newLikes);
-    }
+    const newLikes = totalLikes + 1;
+    setTotalLikes(newLikes);
+    localStorage.setItem('totalPortfolioLikes', newLikes.toString());
   };
 
   return (
-    <StatsContext.Provider value={{ totalLikes, totalViews, incrementLikes, incrementViews, loading }}>
+    <StatsContext.Provider
+      value={{ totalLikes, totalViews, incrementLikes, loading }}
+    >
       {children}
     </StatsContext.Provider>
   );

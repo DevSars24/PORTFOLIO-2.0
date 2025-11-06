@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { BrowserRouter } from "react-router-dom";
 import { StatsProvider } from "./context/StatsContext";
 import PageTransition from "./components/PageTransition";
 
@@ -13,41 +13,27 @@ const Projects = lazy(() => import("./components/Projects"));
 const Contact = lazy(() => import("./components/AICompanion"));
 const WelcomeScreen = lazy(() => import("./components/WelcomeScreen"));
 
-/* ------------------------------- ScrollToTop ------------------------------- */
-// ⚡ Keeps the scroll position consistent when navigating routes
-function ScrollToTop() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [pathname]);
-
-  return null; // No UI needed
-}
-
-/* ------------------------------- AppContent ------------------------------- */
 function AppContent() {
   const [showWelcome, setShowWelcome] = useState(true);
 
-  // ✅ Preload route chunks when browser is idle (smooth transitions)
+  // ✅ Preload other sections in background
   useEffect(() => {
     if ("requestIdleCallback" in window) {
       requestIdleCallback(() => {
-        import("./components/Projects");
         import("./components/About");
+        import("./components/Projects");
         import("./components/AICompanion");
       });
     } else {
-      // Fallback for older browsers
       setTimeout(() => {
-        import("./components/Projects");
         import("./components/About");
+        import("./components/Projects");
         import("./components/AICompanion");
       }, 1500);
     }
   }, []);
 
-  // ✅ Simple loader
+  // ✅ Loader Component (global for smoother feel)
   const Loader = () => (
     <div className="flex items-center justify-center h-screen text-white bg-[#0B1220]">
       <p className="animate-pulse text-lg tracking-wide">Loading...</p>
@@ -55,59 +41,38 @@ function AppContent() {
   );
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" initial={false}> {/* ✅ initial={false} prevents duplicate entry anims */}
       {showWelcome ? (
         <Suspense fallback={<Loader />}>
           <WelcomeScreen key="welcome" onFinish={() => setShowWelcome(false)} />
         </Suspense>
       ) : (
-        <BrowserRouter>
-          <ScrollToTop /> {/* ✅ Inline function now handled locally */}
-          <Suspense fallback={<Loader />}>
-            <Routes>
-              <Route
-                element={
-                  <Suspense fallback={<Loader />}>
-                    <Layout />
-                  </Suspense>
-                }
-              >
-                <Route
-                  path="/"
-                  element={
-                    <PageTransition>
-                      <Hero />
-                    </PageTransition>
-                  }
-                />
-                <Route
-                  path="/about"
-                  element={
-                    <PageTransition>
-                      <About />
-                    </PageTransition>
-                  }
-                />
-                <Route
-                  path="/projects/:id?"
-                  element={
-                    <PageTransition>
-                      <Projects />
-                    </PageTransition>
-                  }
-                />
-                <Route
-                  path="/contact"
-                  element={
-                    <PageTransition>
-                      <Contact />
-                    </PageTransition>
-                  }
-                />
-              </Route>
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
+        <Suspense fallback={<Loader />}>
+          <BrowserRouter> {/* ✅ Move inside if needed, but keep here for full-app routing */}
+            <Layout key="main"> {/* ✅ Key ensures clean unmount/remount */}
+              <PageTransition>
+                <main className="scroll-smooth relative"> {/* ✅ relative for any abs pos inside */}
+                  {/* ✅ Full-page scrollable structure – add snap if wanted */}
+                  <section id="home" className="snap-start"> {/* snap-start for smooth scroll-snaps */}
+                    <Hero />
+                  </section>
+
+                  <section id="about" className="min-h-screen snap-start">
+                    <About />
+                  </section>
+
+                  <section id="projects" className="min-h-screen snap-start">
+                    <Projects />
+                  </section>
+
+                  <section id="contact" className="min-h-screen snap-start">
+                    <Contact />
+                  </section>
+                </main>
+              </PageTransition>
+            </Layout>
+          </BrowserRouter>
+        </Suspense>
       )}
     </AnimatePresence>
   );
