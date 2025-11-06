@@ -7,7 +7,7 @@
    import { Github, Linkedin, Eye } from "lucide-react";
    import { Button } from "@/components/ui/button";
    import { useEffect, useState } from "react";
-   // import { Link } from "react-router-dom"; // ✅ Removed since we're using hash links for SPA scrolling
+   // import { Link } from "react-router-dom"; 
    import profile from "../assets/profile.png";
    
    import html from "../assets/html.png";
@@ -164,7 +164,7 @@
              <img
                src={profile}
                alt="Saurabh Singh Rajput"
-               className="w-50 h-50 sm:w-55 sm:h-55 md:w-80 md:h-80 rounded-full object-cover 
+               className="w-50 h-50 sm:w-55 sm:h-55 md:w-100 md:h-100 rounded-full object-cover 
                border-2 border-orange-500/50 shadow-[0_0_30px_rgba(251,146,60,0.3)]
                hover:shadow-[0_0_50px_rgba(251,146,60,0.5)] transition-all duration-700"
              />
